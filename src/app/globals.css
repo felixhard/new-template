@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+.agency {
+    --background: 11 11 11;
+    --background-secondary: 15 15 15;
+    --content: 255 255 255;
+    --border: 48 48 48;
+    --accent: 99 102 241;
+    --primary: 64 75 227;
+    --secondary: 16 185 129;
+}
+
+.dark {
+    --background: 17 24 39;
+    --background-secondary: 31 41 55;
+    --content: 243 244 246;
+    --border: 184 184 184;
+    --accent: 129 140 248;
+    --primary: 99 102 241;
+    --secondary: 52 211 153;
+}
+
+.deep-sea {
+    --background: 5 11 46;
+    --background-secondary: 9 21 68;
+    --content: 255 255 255;
+    --border: 184 184 184;
+    --accent: 15 76 117;
+    --primary: 46 139 192;
+    --secondary: 0 168 204;
+}
+
+.forest {
+    --background: 27 46 27;
+    --background-secondary: 36 59 36;
+    --content: 232 243 232;
+    --border: 184 184 184;
+    --accent: 46 90 28;
+    --primary: 62 124 23;
+    --secondary: 150 190 140;
+}
+
+* {
+    font-family: DM Sans, sans-serif;
+}

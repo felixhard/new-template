@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url       = env("DATABASE_URL")
+}
+
+enum SubscriptionTier {
+  FREE
+  STARTER
+  PRO
+}
+
+model User {
+  id               String         @id @default(uuid()) @db.Uuid
+  name             String?        
+  email            String
+  emailVerified    DateTime?
+  image            String?
+  sessions         Session[]
+  stripeCustomerId String?
+  subscriptionId   String?
+  subscriptionPlan SubscriptionTier @default(FREE)
+  subscriptionStatus String?
+  subscriptionType String?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  @@index([email], name: "user_email_idx")
+  @@unique([email])
+}
+
+model Session {
+  id           String   @id @default(uuid()) @db.Uuid
+  sessionToken String   @unique
+  userId       String   @db.Uuid
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  @@index([sessionToken], name: "session_token_idx")
+}
+
+model VerificationToken {
+  id         String   @id @default(uuid()) @db.Uuid
+  identifier String
+  token      String
+  expires    DateTime
+  @@unique([identifier, token])
+  @@index([identifier], name: "verification_identifier_idx")
+}
+
+model Lead {
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
