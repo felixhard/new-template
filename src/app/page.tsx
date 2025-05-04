@@ -12,27 +12,27 @@ import WhyUs from "@/components/home/WhyUs";
 import Navbar from "@/components/Navbar";
 
 export default function Home() {
-    return (
-        <div className="bg-background">
-            <Navbar />
+  return (
+    <div className="bg-background">
+      <Navbar />
 
-            <Hero />
+      <Hero />
 
-            <WhatWeBuild />
+      <WhatWeBuild />
 
-            <Customers />
+      {/* <Customers />
 
-            <WhyUs />
+      <WhyUs />
 
-            <Reviews />
+      <Reviews /> */}
 
-            <Pricing />
+      <Pricing />
 
-            <ContactUs />
+      <ContactUs />
 
-            <FAQ />
+      <FAQ />
 
-            <Footer />
-        </div>
-    );
+      <Footer />
+    </div>
+  );
 }

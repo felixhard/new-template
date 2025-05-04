@@ -6,7 +6,7 @@ import Badge from "./Badge";
 import PricingCard from "./PricingCard";
 
 export default function Pricing() {
-    const { starter, pro, enterprise } = config.stripe.plans;
+    const { ftf, fsmvp, enterprise } = config.stripe.plans;
 
     return (
         <div
@@ -23,9 +23,9 @@ export default function Pricing() {
 
                 <FadeIn duration={150} className="w-full">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-0 md:mt-8 w-full">
-                        <PricingCard plan={starter} />
+                        <PricingCard plan={ftf} />
 
-                        <PricingCard plan={pro} />
+                        <PricingCard plan={fsmvp} />
 
                         <PricingCard plan={enterprise} />
                     </div>

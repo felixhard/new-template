@@ -1,0 +1,89 @@
+Implementation Plan: Refactor Next.js Template
+
+Phase 1: Setup & Configuration
+
+1. Install and Update Dependencies
+   - Install the latest version of `next-themes`:
+     npm install next-themes
+   - Install or update to the latest version of `next-auth`:
+     npm install next-auth
+   - Ensure that `@next/font` is NOT installed, as it is deprecated. Use the built-in `next/font` for font management.
+
+2. Initialize shadcn/ui Components
+   - Run the shadcn/ui initialization command:
+     npx shadcn@latest init
+   - Follow the CLI prompts:
+     - Choose TypeScript if your project uses it.
+     - Select your preferred style and base color.
+     - Enable CSS variables, Tailwind config, aliases, RSC, and globals.css as needed.
+   - After initialization, verify:
+     - `tailwind.config.ts` includes `darkMode: "class"`.
+     - `src/app/globals.css` contains CSS variables for themes.
+     - `src/components/ui` and `src/lib/utils.ts` have been created.
+
+3. Configure next-themes for Theme Management
+   - In `src/app/layout.tsx`, wrap your app content with the `ThemeProvider` from `next-themes`:
+     import { ThemeProvider } from "next-themes";
+     <ThemeProvider attribute="class" defaultTheme="light">
+       {/* Your app content */}
+     </ThemeProvider>
+   - If using the Next.js App Router, add `suppressHydrationWarning` to the `<html>` element to prevent hydration warnings.
+
+4. Set Up the Inter Font Using next/font
+   - Import the Inter font from `next/font/google` in `src/app/layout.tsx`:
+     import { Inter } from "next/font/google";
+     const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+   - Apply the font variable to the `<body>` element:
+     <body className={cn("font-sans", inter.variable)}>
+   - In `tailwind.config.ts`, extend the theme's fontFamily:
+     import { fontFamily } from "tailwindcss/defaultTheme";
+     theme: {
+       extend: {
+         fontFamily: {
+           sans: ["var(--font-sans)", ...fontFamily.sans],
+         },
+       },
+     }
+   - Remove any old global font styles from `src/app/globals.css`.
+
+Phase 2: Authentication Refactor
+
+5. Update NextAuth Configuration
+   - In `src/app/api/auth/[...nextauth]/route.ts`, import the Google provider:
+     import GoogleProvider from "next-auth/providers/google";
+   - Remove the Email provider if present.
+   - Add the Google provider to the providers array, using `clientId` and `clientSecret` from environment variables.
+   - If using Prisma, ensure the Prisma adapter (`@next-auth/prisma-adapter`) is compatible and properly configured.
+
+6. Refactor the Sign-in UI
+   - Locate sign-in related components, such as in `src/components/auth` or `src/app/(auth)/sign-in/page.tsx`.
+   - Remove any magic link or email sign-in elements.
+   - Add a "Sign in with Google" button that calls:
+     import { signIn } from "next-auth/react";
+     <button onClick={() => signIn("google")}>Sign in with Google</button>
+
+Phase 3: UI Overhaul & Cleanup
+
+7. Create a Theme Toggler Component
+   - Create a new file at `src/components/theme-toggle.tsx`.
+   - Use the `useTheme` hook from `next-themes` to manage theme state.
+   - Install shadcn/ui components needed for the toggler:
+     npx shadcn@latest add button dropdown-menu switch
+   - Build the toggler UI using these components and add it to your header or navigation.
+
+8. Refactor UI Components to Use shadcn/ui
+   - Review all components in `src/components` and `src/app`.
+   - Identify standard UI elements (Buttons, Inputs, Cards, etc.).
+   - For each needed component, install via:
+     npx shadcn@latest add <component-name>
+   - Refactor existing components to import from `src/components/ui`.
+
+9. Remove the FlickeringGrid Component
+   - Search the codebase for any usage of `FlickeringGrid`.
+   - Remove all imports and instances of this component.
+   - Delete the `FlickeringGrid` component file.
+
+10. Final Styling and Cleanup
+    - Review `tailwind.config.ts` and remove any unused custom color definitions.
+    - In `globals.css`, ensure only shadcn/ui and next-themes CSS variables are used for theming. Remove any conflicting or outdated theme styles.
+    - Remove any unused components, hooks, or utilities related to the old UI or authentication system.

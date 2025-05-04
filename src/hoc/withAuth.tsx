@@ -42,42 +42,39 @@ import { ComponentType, useEffect } from "react";
 
 // Define the types that will be added or modified by the HOC
 export type WithAuthProps = {
-    isAuthenticated: boolean;
+  isAuthenticated: boolean;
 };
 
 // Extend component props with the HOC's own props
 function withAuth<T extends object>(
-    WrappedComponent: ComponentType<T & WithAuthProps>
+  WrappedComponent: ComponentType<T & WithAuthProps>,
 ) {
-    return function AuthComponent(props: T) {
-        const router = useRouter();
+  return function AuthComponent(props: T) {
+    const router = useRouter();
 
-        const { data: session, status } = useSession();
+    const { data: session, status } = useSession();
 
-        const isLoading = status === "loading";
-        const isAuthenticated = !!session?.user; // Check if user is authenticated
+    const isLoading = status === "loading";
+    const isAuthenticated = !!session?.user; // Check if user is authenticated
 
-        useEffect(() => {
-            if (!isLoading && !isAuthenticated) {
-                router.push("/");
-            }
-        }, [isAuthenticated, isLoading, router]);
+    useEffect(() => {
+      if (!isLoading && !isAuthenticated) {
+        router.push("/");
+      }
+    }, [isAuthenticated, isLoading, router]);
 
-        if (isLoading) {
-            return <div>Loading...</div>;
-        }
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
 
-        if (!isAuthenticated) {
-            router.push("/auth/signin");
-        }
+    if (!isAuthenticated) {
+      router.push("/auth/signin");
+    }
 
-        return (
-            <WrappedComponent
-                {...(props as T)}
-                isAuthenticated={isAuthenticated}
-            />
-        );
-    };
+    return (
+      <WrappedComponent {...(props as T)} isAuthenticated={isAuthenticated} />
+    );
+  };
 }
 
 export default withAuth;

@@ -4,7 +4,7 @@ import { stripe } from "@/lib/stripe";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { SubscriptionTier } from "@prisma/client";
 import NextAuth, { DefaultSession } from "next-auth";
-import ResendProvider from "next-auth/providers/resend";
+import GoogleProvider from "next-auth/providers/google";
 
 // Extend NextAuth's Session type to include a custom user ID field
 declare module "next-auth" {
@@ -21,11 +21,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     // Configure Prisma adapter for database integration
     adapter: PrismaAdapter(db),
 
-    // Set up Resend as the email provider for authentication
+    // Set up Google as the provider for authentication
     providers: [
-        ResendProvider({
-            from: config.resend.admin,
-            apiKey: process.env.RESEND_API_KEY,
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
         }),
     ],
 

@@ -4,22 +4,22 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function CheckoutSuccessPage() {
-    const router = useRouter();
+  const router = useRouter();
 
-    useEffect(() => {
-        // Give a small delay to allow webhook to process
-        const timeout = setTimeout(() => {
-            router.replace("/dashboard");
-        }, 2000);
+  useEffect(() => {
+    // Give a small delay to allow webhook to process
+    const timeout = setTimeout(() => {
+      router.replace("/dashboard");
+    }, 2000);
 
-        return () => clearTimeout(timeout);
-    }, [router]);
+    return () => clearTimeout(timeout);
+  }, [router]);
 
-    return (
-        <div>
-            <h1>Checkout Success</h1>
+  return (
+    <div>
+      <h1>Checkout Success</h1>
 
-            <p>Your subscription is being activated...</p>
-        </div>
-    );
+      <p>Your subscription is being activated...</p>
+    </div>
+  );
 }

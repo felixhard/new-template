@@ -3,74 +3,69 @@
 import { trpc } from "@/app/_trpc/client";
 import { isValidEmail } from "@/utils/validation";
 import { useState } from "react";
-import toast from "react-hot-toast";
-import Button from "../ui/Button";
+import { toast } from "react-hot-toast";
+import { Button } from "../ui/Button";
 import Input from "../ui/Input";
 import Text from "../ui/Text";
 
 export default function EmailLead() {
-    const [email, setEmail] = useState("");
-    const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    const {
-        mutateAsync: createLead,
-        isPending,
-        isSuccess,
-    } = trpc.lead.create.useMutation({
-        onSuccess: () => {
-            toast.success("You're subscribed!");
-            setEmail("");
-        },
-        onError: () => {
-            toast.error("Something went wrong.");
-        },
-    });
+  const { mutate: createLead } = trpc.lead.create.useMutation({
+    onSuccess: () => {
+      toast.success("Great! We'll be in touch soon.");
+      setEmail("");
+      setLoading(false);
+    },
+    onError: (error: any) => {
+      toast.error(error.message || "An error occurred");
+      setLoading(false);
+    },
+  });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
-        setError("");
-    };
+  const handleEmailSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    if (!isValidEmail(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
 
-        if (!email) {
-            setError("Email is required");
-            return;
-        }
+    setLoading(true);
+    createLead({ email });
+  };
 
-        if (!isValidEmail(email)) {
-            setError("Please enter a valid email address");
-            return;
-        }
+  return (
+    <div className="flex flex-col gap-2 w-full items-center justify-center pointer-events-auto">
+      <Text textStyle="h5" alignment="center">
+        Join our newsletter
+      </Text>
 
-        await createLead({ email });
-    };
+      <Text textStyle="body2" alignment="center">
+        Stay up to date with the latest news, updates, and offers.
+      </Text>
 
-    return (
-        <div>
-            <form onSubmit={handleSubmit} className="flex items-center gap-2">
-                <Input
-                    placeholder="Email"
-                    name="Email"
-                    onChange={handleChange}
-                    className={error ? "border-red-500" : ""}
-                />
+      <form
+        onSubmit={handleEmailSubmit}
+        className="flex flex-col md:flex-row gap-2 w-full max-w-lg mt-2"
+      >
+        <Input
+          placeholder="Enter your email"
+          name="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full md:flex-1"
+        />
 
-                <Button
-                    type="submit"
-                    disabled={isPending || isSuccess}
-                    isLoading={isPending}
-                >
-                    Subscribe
-                </Button>
-            </form>
-
-            {error && (
-                <Text textStyle="body1" alignment="center" color="text-red-100">
-                    {error}
-                </Text>
-            )}
-        </div>
-    );
+        <Button
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? "Subscribing..." : "Subscribe"}
+        </Button>
+      </form>
+    </div>
+  );
 }

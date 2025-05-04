@@ -1,50 +1,69 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root,
-.agency {
-    --background: 11 11 11;
-    --background-secondary: 15 15 15;
-    --content: 255 255 255;
-    --border: 48 48 48;
-    --accent: 99 102 241;
-    --primary: 64 75 227;
-    --secondary: 16 185 129;
+@layer base {
+  :root {
+    --background: 0 0% 100%; /* White */
+    --foreground: 0 0% 0%; /* Black */
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 0 0% 3.9%; /* Almost black */
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 0 0% 3.9%; /* Almost black */
+    --primary: 221 83% 53%; /* Blue */
+    --primary-foreground: 0 0% 100%; /* White */
+    --secondary: 0 0% 96.1%; /* Light grey */
+    --secondary-foreground: 0 0% 9%; /* Dark grey */
+    --muted: 0 0% 96.1%; /* Light grey */
+    --muted-foreground: 0 0% 45.1%; /* Medium grey */
+    --accent: 221 83% 53%; /* Blue */
+    --accent-foreground: 0 0% 98%; /* Off-white */
+    --destructive: 0 84.2% 60.2%; /* Red */
+    --destructive-foreground: 0 0% 98%; /* Off-white */
+    --border: 0 0% 85%; /* Medium-light grey */
+    --input: 0 0% 89.8%; /* Light grey */
+    --ring: 221 83% 53%; /* Blue */
+    --chart-1: 221 83% 53%; /* Blue */
+    --chart-2: 173 58% 39%; /* Teal */
+    --chart-3: 197 37% 24%; /* Dark cyan */
+    --chart-4: 43 74% 66%; /* Yellow */
+    --chart-5: 27 87% 67%; /* Orange */
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 0%; /* Black */
+    --foreground: 0 0% 100%; /* White */
+    --card: 0 0% 7%; /* Very dark grey (not pure black) */
+    --card-foreground: 0 0% 98%; /* Off-white */
+    --popover: 0 0% 7%; /* Very dark grey */
+    --popover-foreground: 0 0% 98%; /* Off-white */
+    --primary: 221 83% 53%; /* Blue */
+    --primary-foreground: 0 0% 98%; /* Off-white */
+    --secondary: 0 0% 14.9%; /* Dark grey */
+    --secondary-foreground: 0 0% 98%; /* Off-white */
+    --muted: 0 0% 14.9%; /* Dark grey */
+    --muted-foreground: 0 0% 63.9%; /* Light-medium grey */
+    --accent: 221 83% 53%; /* Blue */
+    --accent-foreground: 0 0% 98%; /* Off-white */
+    --destructive: 0 62.8% 30.6%; /* Dark red */
+    --destructive-foreground: 0 0% 98%; /* Off-white */
+    --border: 0 0% 20%; /* Dark grey */
+    --input: 0 0% 14.9%; /* Dark grey */
+    --ring: 0 0% 83.1%; /* Light grey */
+    --chart-1: 220 70% 50%; /* Blue */
+    --chart-2: 160 60% 45%; /* Green */
+    --chart-3: 30 80% 55%; /* Orange */
+    --chart-4: 280 65% 60%; /* Purple */
+    --chart-5: 340 75% 55%; /* Pink */
+  }
 }
 
-.dark {
-    --background: 17 24 39;
-    --background-secondary: 31 41 55;
-    --content: 243 244 246;
-    --border: 184 184 184;
-    --accent: 129 140 248;
-    --primary: 99 102 241;
-    --secondary: 52 211 153;
-}
-
-.deep-sea {
-    --background: 5 11 46;
-    --background-secondary: 9 21 68;
-    --content: 255 255 255;
-    --border: 184 184 184;
-    --accent: 15 76 117;
-    --primary: 46 139 192;
-    --secondary: 0 168 204;
-}
-
-.forest {
-    --background: 27 46 27;
-    --background-secondary: 36 59 36;
-    --content: 232 243 232;
-    --border: 184 184 184;
-    --accent: 46 90 28;
-    --primary: 62 124 23;
-    --secondary: 150 190 140;
-}
-
-* {
-    font-family: DM Sans, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
