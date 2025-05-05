@@ -9,9 +9,12 @@ import { Button } from "./ui/Button";
 import Card from "./ui/Card";
 import { Iconify } from "./ui/Iconify";
 import { ThemeToggle } from "./theme-toggle";
+import { useSession } from "next-auth/react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { status } = useSession();
+  const isAuthenticated = status === "authenticated";
 
   const handleScroll = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
     e.preventDefault();
@@ -38,8 +41,9 @@ export default function Navbar() {
                 </Button>
               ))}
 
-              <ThemeToggle />
+              {!isAuthenticated && <ThemeToggle />}
               <AuthButton />
+              {isAuthenticated && <ThemeToggle />}
             </div>
 
             <button
@@ -81,8 +85,9 @@ export default function Navbar() {
                   </Button>
                 ))}
 
-                <ThemeToggle />
+                {!isAuthenticated && <ThemeToggle />}
                 <AuthButton />
+                {isAuthenticated && <ThemeToggle />}
               </div>
             </div>
           </div>

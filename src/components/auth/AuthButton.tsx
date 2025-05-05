@@ -10,14 +10,16 @@ export default function AuthButton() {
 
   return (
     <>
-      {/* If user is authenticated, show Dashboard and Sign Out buttons */}
+      {/* If user is authenticated, show Dashboard and Account buttons */}
       {session.status === "authenticated" ? (
         <div className="flex flex-col md:flex-row items-center gap-4 md:gap-0">
           <Link href="/dashboard">
             <Button variant="ghost">Dashboard</Button>
           </Link>
-
-          <SignOutButton />
+          
+          <Link href="/account">
+            <Button variant="ghost">Account</Button>
+          </Link>
         </div>
       ) : (
         // If user is not authenticated, show Sign In button

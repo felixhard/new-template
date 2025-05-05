@@ -14,7 +14,7 @@ export default function SignOutButton() {
   };
 
   return (
-    <Button variant="ghost" onClick={handleSignOut} disabled={isLoading}>
+    <Button variant="outline" onClick={handleSignOut} disabled={isLoading}>
       {isLoading ? "Signing Out..." : "Sign Out"}
     </Button>
   );

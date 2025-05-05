@@ -106,10 +106,10 @@ export default function PricingCard({ plan }: PricingCardProps) {
               </div>
 
               <Button
-                  className="mt-auto w-full"
+                  className="mt-auto w-full backdrop-blur-md hover:border-primary/50 dark:hover:border-primary/70 dark:hover:shadow-[0_0_15px_rgba(59,130,246,0.2)] transition-all duration-300"
                   onClick={handleGetStarted}
                   disabled={isLoading || isRedirecting}
-                  variant={plan.name === "Fullstack MVP" ? "default" : "secondary"}
+                  variant={plan.name === "Fullstack MVP" ? "default" : "outline"}
               >
                   {isLoading ? "Preparing checkout..." : isRedirecting ? "Redirecting..." : plan.name === "Enterprise Plan" ? "Book a call" : "Get Started"}
               </Button>
