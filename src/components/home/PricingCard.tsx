@@ -82,7 +82,7 @@ export default function PricingCard({ plan }: PricingCardProps) {
           }
       >
           <div className="flex flex-col gap-4 h-full">
-              <Text fontWeight="font-medium" textStyle="h5">{plan.name}</Text>
+              <Text fontWeight="font-bold" textStyle="h5">{plan.name}</Text>
 
               <div className="flex gap-2 items-baseline">
                   {plan.name === "Enterprise Plan" ? (

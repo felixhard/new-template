@@ -23,7 +23,7 @@ export default function SectionHeader({
       <Text 
         textStyle="h2" 
         alignment={justify === "center" ? "center" : "left"}
-        fontWeight="font-bold"
+        fontWeight="font-extrabold"
       >
         {title}
       </Text>

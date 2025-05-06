@@ -4,6 +4,7 @@ import { Button } from "./ui/Button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import FadeIn from "./ui/FadeIn";
+import Text from "./ui/Text";
 
 export default function Hero() {
   const handleScroll = (e: React.MouseEvent<HTMLElement>, id: string) => {
@@ -34,13 +35,22 @@ export default function Hero() {
 
 
           <div className="max-w-4xl flex flex-col items-center gap-4 z-10">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-tight sm:leading-tight ">
+            <Text 
+              textStyle="h1" 
+              fontWeight="font-extrabold" 
+              className="text-4xl sm:text-5xl md:text-6xl leading-tight sm:leading-tight"
+              alignment="center"
+            >
               Launch your app in days with our template
-            </h1>
-            <p className="text-lg sm:text-xl opacity-80 max-w-3xl">
+            </Text>
+            <Text 
+              textStyle="body1" 
+              className="text-lg sm:text-xl max-w-3xl"
+              alignment="center"
+            >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt.
-            </p>
+            </Text>
           </div>
 
           <div className="flex gap-4 items-center pointer-events-auto">

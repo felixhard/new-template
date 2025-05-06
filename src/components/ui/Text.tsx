@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { HTMLAttributes, ReactNode } from "react";
+import { HTMLAttributes, ReactNode, CSSProperties } from "react";
 
 type Props = {
   color?: string;
@@ -17,7 +17,7 @@ type Props = {
     | "body1"
     | "body2"
     | "body3";
-  fontWeight?: "font-normal" | "font-medium" | "font-semibold" | "font-bold";
+  fontWeight?: "font-normal" | "font-medium" | "font-semibold" | "font-bold" | "font-extrabold";
 } & HTMLAttributes<HTMLParagraphElement>;
 
 export default function Text({
@@ -73,6 +73,7 @@ export default function Text({
         fontWeight,
         className,
       )}
+      style={fontWeight === "font-extrabold" ? { letterSpacing: "-0.050em" } as CSSProperties : undefined}
       {...props}
     >
       {children}
